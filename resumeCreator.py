@@ -5,14 +5,14 @@
 # Purpose: I'm learning python, and this seemed like a good project to create. 
 
 # Some basic variables
-userName # The name of the user
-currentEmploymentStatus # Boolean, referes to wehther the user is currently employed
-desiredJobType # String; the user selects from Full-Time, Part-Time, or Other (user-specified)
-currentEmployer # String, refers to the user's current company name, if applicable
-currentJobTitle # String, refers to the user's current job title, if applicable
-newToWorkForce # Boolean, 'false' by default, refers to whether this is the user's first job.
-standardWorkWeekAvailability # Boolean, refers to whether the user can work from 8-6 on Monday-Friday, automatically set to "False" if desiredJobType is Part-Time.
-previousJobCount # integer. This is determined by continually asking the user "Would you like to add job history?" until the user answers in the negative.
+userName = "" # The name of the user
+currentEmploymentStatus = False # Boolean, referes to wehther the user is currently employed
+desiredJobType "" # String; the user selects from Full-Time, Part-Time, or Other (user-specified)
+currentEmployer "" # String, refers to the user's current company name, if applicable
+currentJobTitle "" # String, refers to the user's current job title, if applicable
+newToWorkForce = False # Boolean, 'false' by default, refers to whether this is the user's first job.
+standardWorkWeekAvailability = False # Boolean, refers to whether the user can work from 8-6 on Monday-Friday, automatically set to "False" if desiredJobType is Part-Time.
+previousJobCount = 0 # integer. This is determined by continually asking the user "Would you like to add job history?" until the user answers in the negative.
 
 # TO DO: 
 # Create function to get previous job data for the user. Make sure this function can be called within itself, if necessary. This is done for looping purposes. 
@@ -41,4 +41,26 @@ def get_basic_information():
 
 
 def get_previous_job_data():
+    global runFunction
+    runFunction = False
+    userWantsToRunFunction = input("Would you like to add data for a previous employer? (y/n)\n")
+    if userWantsToRunFunction == "y":
+        runFunction = True
+    elif userWantsToRunFunction == "n":
+        runFunction = False
+    else: 
+        print("Response unclear. The loop will not run this time.")
+        runFunction = False
 
+
+def create_resume():
+    print("\nResume:")
+    print(f"Name: {userName}")
+    print(f"Current Employer: {currentEmployer if currentEmploymentStatus else 'Not Applicable'}")
+    print(f"Desired Job Type: {desiredJobType}")
+    print(f"Current Job Title: {currentJobTitle if currentEmploymentStatus else 'Not Applicable'}")
+    print(f"Availability: {'Standard Work Week' if standardWorkWeekAvailability else {weeklyAvailability}}")
+   
+get_basic_information()
+get_previous_job_data()
+create_resume()
