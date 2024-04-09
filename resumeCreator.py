@@ -7,9 +7,9 @@
 # Some basic variables
 userName = "" # The name of the user
 currentEmploymentStatus = False # Boolean, referes to wehther the user is currently employed
-desiredJobType "" # String; the user selects from Full-Time, Part-Time, or Other (user-specified)
-currentEmployer "" # String, refers to the user's current company name, if applicable
-currentJobTitle "" # String, refers to the user's current job title, if applicable
+desiredJobType = "" # String; the user selects from Full-Time, Part-Time, or Other (user-specified)
+currentEmployer = "" # String, refers to the user's current company name, if applicable
+currentJobTitle = "" # String, refers to the user's current job title, if applicable
 newToWorkForce = False # Boolean, 'false' by default, refers to whether this is the user's first job.
 standardWorkWeekAvailability = False # Boolean, refers to whether the user can work from 8-6 on Monday-Friday, automatically set to "False" if desiredJobType is Part-Time.
 previousJobCount = 0 # integer. This is determined by continually asking the user "Would you like to add job history?" until the user answers in the negative.
@@ -20,11 +20,11 @@ previousJobCount = 0 # integer. This is determined by continually asking the use
 # Create a function which allows a user to add anything of their choosing. This should allow the user to copy and paste formatted information. 
 
 class Employer: 
-    def __init__(self, name, industry, start_date, current_status, end_date):
+    def __init__(self, name, industry, start_date, current_status, end_date, salary):
         self.name = name
         self.industry = industry
         self.start_date = start_date
-        self.current_status
+        self.current_status = current_status
         self.end_date = end_date
         self.salary = salary
 
@@ -51,7 +51,8 @@ def get_basic_information():
 
 # The goal here is to get ALL of the previous job data
 def get_previous_job_data():
-    global previous_employers = [] # Store all of the previous employers. 
+    global previous_employers   # declare the global variable
+    previous_employers = [] # Create the vector
     global runFunction # Store a binary value to determine whether or not to run the questions. 
     runFunction = False
     userWantsToRunFunction = input("Would you like to add data for a previous employer? (y/n)\n")
@@ -69,9 +70,9 @@ def get_previous_job_data():
         previousEmployerStartDate = input ("On what date did you start with this employer? ")
         previousEmployerCurrentStatus = input("Are you still employed at this company? ")
         # Process user reponse for previousEmployerCurrentStatus
-        if previousEmployerCurrentStatus == "y" || "yes": 
+        if previousEmployerCurrentStatus == "y" or  "yes": 
             previousEmployerCurrentStatus = bool(True)
-        elif previousEmployerCurrentStatus == "n" || "no":
+        elif previousEmployerCurrentStatus == "n" or "no":
             previousEmployerCurrentStatus = bool(False)
         else: 
             print("You did not enter a valid answer to the previous question.") # This needs to be updated to better handle this case. 
@@ -80,7 +81,8 @@ def get_previous_job_data():
             previousEmployerEndDate = input("On what date did you leave this employer? ")
 
 def get_skills():
-    global userSkills = []
+    global userSkills # Declare global variable
+    userSkills = [] # Convert global variable to vector
     input("Please enter any number of skills you want, separated by commas.\n")
 
 
@@ -91,7 +93,7 @@ def create_resume():
     print(f"Current Employer: {currentEmployer if currentEmploymentStatus else 'Not Applicable'}")
     print(f"Desired Job Type: {desiredJobType}")
     print(f"Current Job Title: {currentJobTitle if currentEmploymentStatus else 'Not Applicable'}")
-    print(f"Availability: {'Standard Work Week' if standardWorkWeekAvailability else {weeklyAvailability}}")
+    print(f"Availability: {'Standard Work Week' if standardWorkWeekAvailability else weeklyAvailability}")
    
 get_basic_information()
 get_previous_job_data()
